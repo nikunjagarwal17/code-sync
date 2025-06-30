@@ -3,6 +3,8 @@ import "./App.css";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import { v4 as uuid } from "uuid";
+// Import logo
+import logo from "./assets/code-sync.png";
 
 const socket = io("http://localhost:5000");
 
@@ -116,6 +118,28 @@ const App = () => {
     return (
       <div className="join-container">
         <div className="join-form">
+          <div className="logo">
+            <img 
+              src={logo}
+              alt="Code Sync Logo"
+              style={{
+                height: '60px',
+                width: 'auto',
+                display: 'block',
+                maxWidth: '100%'
+              }}
+              onLoad={() => console.log('Login logo loaded successfully')}
+              onError={(e) => {
+                console.log('Login logo failed to load:', e);
+                console.log('Logo path:', logo);
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <div className="logo-text" style={{display: 'none'}}>
+              CodeSync
+            </div>
+          </div>
           <h1>Join Code Room</h1>
           <input
             type="text"
@@ -123,7 +147,7 @@ const App = () => {
             value={roomId}
             onChange={(e) => setRoomId(e.target.value)}
           />
-          <button onClick={createRoomId}>create id</button>
+          <button onClick={createRoomId}>Create New Room</button>
           <input
             type="text"
             placeholder="Your Name"
@@ -132,6 +156,11 @@ const App = () => {
           />
           <button onClick={joinRoom}>Join Room</button>
         </div>
+        <footer>
+          <h4>Built with 💙 &nbsp; by {''}
+            <a href='https://github.com/nikunjagarwal17'>Nikunj Agarwal</a>
+          </h4>
+        </footer>
       </div>
     );
   }
@@ -139,6 +168,28 @@ const App = () => {
   return (
     <div className="editor-container">
       <div className="sidebar">
+        <div className="logo">
+          <img 
+            src={logo}
+            alt="Code Sync Logo"
+            style={{
+              height: '50px',
+              width: 'auto',
+              display: 'block',
+              maxWidth: '100%'
+            }}
+            onLoad={() => console.log('Sidebar logo loaded successfully')}
+            onError={(e) => {
+              console.log('Sidebar logo failed to load:', e);
+              console.log('Logo path:', logo);
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'block';
+            }}
+          />
+          <div className="logo-text" style={{display: 'none'}}>
+            CodeSync
+          </div>
+        </div>
         <div className="room-info">
           <h2>Code Room: {roomId}</h2>
           <button onClick={copyRoomId} className="copy-button">
